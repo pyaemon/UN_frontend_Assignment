@@ -5,6 +5,7 @@ import {
   useDeletePhotoMutation,
 } from "../../api/photoApi";
 import { PhotoViewModal } from "./PhotoViewModal";
+import { toast } from "react-toastify";
 
 interface PhotoThumbnailProps {
   id: string;
@@ -21,6 +22,14 @@ export function PhotoThumbnail({ id }: PhotoThumbnailProps) {
   if (error)
     return <div className="thumbnail error-state">Error loading photo</div>;
 
+  const handleDelete = async () => {
+    try {
+      await deletePhoto(id).unwrap();
+      toast.success("Deleted Successfully");
+    } catch (error) {
+      toast.error(`Delete Failed: ${error || "Unknown error"}`);
+    }
+  };
   return (
     <>
       <div className="thumbnail">
@@ -38,7 +47,7 @@ export function PhotoThumbnail({ id }: PhotoThumbnailProps) {
         </div>
         <div className="thumbnail__actions">
           <button
-            onClick={() => deletePhoto(id)}
+            onClick={handleDelete}
             disabled={isDeleting}
             className="btn btn--danger btn--sm"
           >

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaEdit, FaSave } from "react-icons/fa";
-
+import { toast } from "react-toastify";
 import Modal from "react-modal";
 import {
   useGetPhotoMetadataQuery,
@@ -48,8 +48,9 @@ export function PhotoViewModal({
         },
       }).unwrap();
       setIsEditing(false);
+      toast.success("Updated Successfully");
     } catch (error) {
-      console.error("Failed to update metadata:", error);
+      toast.error(`Failed to update: ${error.data.error || "Unknown error"}`);
     }
   };
 

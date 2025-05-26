@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaUpload } from "react-icons/fa";
 import { useUploadPhotoMutation } from "../../api/photoApi";
+import { toast } from "react-toastify";
 
 export function UploadButton() {
   const [uploadPhoto, { isLoading }] = useUploadPhotoMutation();
@@ -13,9 +14,10 @@ export function UploadButton() {
     try {
       await uploadPhoto({ file }).unwrap();
       setError(null);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      toast.success("Uploaded Successfully");
     } catch (error) {
       setError("");
+      toast.error(`Upload Failed: ${error || "Unknown error"}`);
     }
   };
 
