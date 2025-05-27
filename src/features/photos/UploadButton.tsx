@@ -17,7 +17,7 @@ export function UploadButton() {
       toast.success("Uploaded Successfully");
     } catch (error) {
       setError("");
-      toast.error(`Upload Failed: ${error || "Unknown error"}`);
+      toast.error(`Upload Failed: ${error.data.error || "Unknown error"}`);
     }
   };
 
