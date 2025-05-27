@@ -6,7 +6,6 @@ import {
 } from "../../api/photoApi";
 import { PhotoViewModal } from "./PhotoViewModal";
 import { toast } from "react-toastify";
-
 interface PhotoThumbnailProps {
   id: string;
 }
@@ -27,7 +26,7 @@ export function PhotoThumbnail({ id }: PhotoThumbnailProps) {
       await deletePhoto(id).unwrap();
       toast.success("Deleted Successfully");
     } catch (error) {
-      toast.error(`Delete Failed: ${error || "Unknown error"}`);
+      toast.error(`Delete Failed: ${error.data.error || "Unknown error"}`);
     }
   };
   return (
